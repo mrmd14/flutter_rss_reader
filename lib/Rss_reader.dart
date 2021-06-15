@@ -5,6 +5,14 @@ import 'package:http/http.dart' as http;
 
 
 
+class Pair<T1, T2> {
+  final T1 a;
+  final T2 b;
+
+  Pair(this.a, this.b);
+}
+
+
 class site {
   String siteAdress;
   String siteDescription;
@@ -23,6 +31,20 @@ class RSS_item{
      item  = _item;
      site_title = _site_title;  
    }
+
+   toJSONEncodable() {
+    Map<String, String> m = new Map();
+
+    m['site_title'] = site_title;
+    m['title'] = item.title;
+    m['link'] = item.link;
+    m['pubDate'] = item.pubDate.toString();
+
+
+
+    return m;
+  }
+
 }
 
 
