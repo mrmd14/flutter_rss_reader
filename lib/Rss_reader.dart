@@ -102,6 +102,28 @@ class RSS_reader{
 
 
 
+  String get_title_from_raw(String _raw_html ){
+    String title = '<title>';
+    String end_title = '</title>';
+     var  index = _raw_html.indexOf(title); 
+      if(index == -1){
+        return '-1';
+      }
+      
+     return    _raw_html.substring( index  + title.length  , _raw_html.indexOf(end_title)   );
+
+
+  }
+
+
+  Future<String>  get_site_title(String adr) async {
+      var raw = await Get_response(adr,''); 
+      return  this.get_title_from_raw(raw) ;
+  }
+
+
+
+
   Future<dynamic>  Get_website_rss_items(String add) async{
      var raw = await Get_response(add,''); 
       var rss_adr = this.Get_rss(raw) ;
@@ -154,4 +176,26 @@ void main()  async {
   
 }
 
+*/
+
+
+
+/*
+void main()  async {
+ RSS_reader rss_reader  = new RSS_reader();
+  List<site> sites = new List<site>();
+
+  sites.add( site( 'www.yjc.ir', 'YJC' ));
+  sites.add( site ( 'www.wordpress.org', 'wordpress' ) );
+  sites.add( site ( 'www.zoomg.ir', 'Zoomg' ) );
+
+  for(var val in sites ){
+      var res = await  rss_reader.get_site_title(val.siteAdress);
+    print('********Site:' + res );
+    print(val.siteAdress);
+    print('\n\n');
+  }
+
+  
+}
 */
